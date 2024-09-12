@@ -1,0 +1,40 @@
+.App {
+  --header_height: 60px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 30px;
+  overflow: hidden;
+}
+
+.hw {
+  position: relative;
+  width: 100%;
+}
+
+.hw::after {
+  content: "";
+  position: absolute;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  height: 0px;
+}
+
+.hw:before {
+  content: "";
+  position: absolute;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  height: 0px;
+}
+
+.hwTitle {
+  font-weight: 600;
+  font-size: 22px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
