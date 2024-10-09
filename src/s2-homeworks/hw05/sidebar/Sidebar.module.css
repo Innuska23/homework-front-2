@@ -1,25 +1,69 @@
 .sidebar {
+  display: none;
+  transition: opacity 0.3s ease;
+  position: fixed;
+  height: 100%;
+  min-width: 317px;
+  padding: 63px 70px;
+  left: 0;
+  z-index: 1000;
 }
 
 .sidebar.open {
+  display: block;
+  max-width: 317px;
+  background: #ffffff;
 }
 
 .background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000000;
+  opacity: 0.3;
+  z-index: 999; /* Трохи нижче ніж sidebar */
 }
 
 .nav {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
 }
 
 .nav a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 22px;
+  color: #000;
 }
 
 .nav a:hover {
+  font-weight: 600;
+  font-size: 22px;
+  color: #58acff;
 }
 
 .nav a.active {
+  font-weight: 600;
+  font-size: 22px;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #0059b2;
 }
+
 .close {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .close img {
+  width: 24px;
+  height: 24px;
 }
