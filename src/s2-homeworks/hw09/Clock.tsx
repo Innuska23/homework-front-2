@@ -53,8 +53,8 @@ function Clock() {
     const stringTime = `${hours}:${minutes}:${seconds}` || <br /> // часы24:минуты:секунды (01:02:03)/(23:02:03)/(24:00:00)/(00:00:01) // пишут студенты
 
     const year = date.getFullYear();
-    const month = get2digitsString(date.getMonth());
-    const day = get2digitsString(date.getDay());
+    const month = get2digitsString(date.getMonth() + 1);
+    const day = get2digitsString(date.getDate());
 
     const stringDate = `${day}.${month}.${year}` || <br /> // день.месяц.год (01.02.2022) // пишут студенты, варианты 01.02.0123/01.02.-123/01.02.12345 не рассматриваем
 
