@@ -16,7 +16,6 @@ import { Loader } from './Loader'
 const HW10 = () => {
     const isLoading = useSelector<AppStoreType>(state => state.loading.isLoading)
     const dispatch = useDispatch()
-    console.log(isLoading);
 
     const setLoading = () => {
         dispatch(loadingAC(true))
@@ -27,7 +26,7 @@ const HW10 = () => {
 
     return (
         <div id={'hw10'} style={{ padding: '0 30px' }}>
-            <div className={s2.hwTitle}>Homework #10</div>
+            <div className={s2.hwTitle} style={{ marginBottom: '32px' }}>Homework #10</div>
 
             <div className={s2.hw}>
                 {isLoading ? (
