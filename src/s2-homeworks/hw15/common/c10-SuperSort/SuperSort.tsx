@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  AiOutlineArrowDown,
-  AiOutlineArrowUp,
-  AiOutlineMinus,
-} from "react-icons/ai";
-
-// добавить в проект иконки и импортировать
-const downIcon = <AiOutlineArrowDown />;
-const upIcon = <AiOutlineArrowUp />;
-const noneIcon = <AiOutlineMinus />;
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 export type SuperSortPropsType = {
   id?: string;
@@ -19,7 +10,10 @@ export type SuperSortPropsType = {
 
 export const pureChange = (sort: string, down: string, up: string) => {
   // пишет студент, sort: (click) => down (click) => up (click) => '' (click) => down ...
-  return up; // исправить
+  if (!sort) return up;
+  if (sort === up) return down;
+  if (sort === down) return "";
+  return down; // исправить
 };
 
 const SuperSort: React.FC<SuperSortPropsType> = ({
@@ -35,16 +29,36 @@ const SuperSort: React.FC<SuperSortPropsType> = ({
     onChange(pureChange(sort, down, up));
   };
 
-  const icon = sort === down ? downIcon : sort === up ? upIcon : noneIcon;
+  // const icon = sort === down ? downIcon : sort === up ? upIcon : noneIcon;
 
   return (
-    <span id={id + "-sort-" + value} onClick={onChangeCallback}>
-      {/*сделать иконку*/}
-      {/*<img*/}
-      {/*    id={id + '-icon-' + sort}*/}
-      {/*    src={icon}*/}
-      {/*/>*/}
-      {icon} {/*а это убрать*/}
+    <span
+      id={id + "-sort-" + value}
+      onClick={onChangeCallback}
+      style={{ display: "flex", alignItems: "center" }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <BiChevronUp
+          style={{
+            opacity: sort === up ? 1 : 0.5,
+            color: sort === up ? "blue" : "inherit",
+            transition: "all 0.3s ease",
+          }}
+        />
+        <BiChevronDown
+          style={{
+            opacity: sort === down ? 1 : 0.5,
+            color: sort === down ? "blue" : "inherit",
+            transition: "all 0.3s ease",
+          }}
+        />
+      </div>
     </span>
   );
 };

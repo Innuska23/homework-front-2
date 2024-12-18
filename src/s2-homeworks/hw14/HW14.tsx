@@ -34,7 +34,6 @@ const HW14 = () => {
     setLoading(true);
     getTechs(value)
       .then((res) => {
-        console.log(res);
         if (res && res.data) {
           setTechs(res?.data?.techs);
         }
