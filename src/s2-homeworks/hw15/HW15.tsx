@@ -47,13 +47,21 @@ const HW15 = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [techs, setTechs] = useState<TechType[]>([]);
 
-  const sendQuery = (params: any) => {
+  const sendQuery = (params: ParamsType) => {
     setLoading(true);
-    getTechs(params)
+    getTechs({
+      page: params.page,
+      count: params.count,
+      sort: params.sort,
+    })
       .then((res) => {
         const techData = res?.data?.techs ?? [];
         setTechs(techData);
         setTotalCount(res?.data?.totalCount || 100);
+      })
+      .catch(() => {
+        setTechs([]);
+        setTotalCount(0);
       })
       .finally(() => {
         setLoading(false);
@@ -61,47 +69,56 @@ const HW15 = () => {
   };
 
   const onChangePagination = (newPage: number, newCount: number) => {
-    setPage(newPage);
-    setCount(newCount);
-    const params: Record<string, string> = {
-      page: newPage.toString(),
-      count: newCount.toString(),
+    const params: ParamsType = {
+      page: newPage,
+      count: newCount,
+      sort: sort,
     };
 
-    if (sort) {
-      params.sort = sort;
-    }
+    setPage(newPage);
+    setCount(newCount);
 
     sendQuery(params);
-    setSearchParams(params);
+    setSearchParams({
+      page: newPage.toString(),
+      count: newCount.toString(),
+      ...(sort ? { sort } : {}),
+    });
   };
 
   const onChangeSort = (newSort: string) => {
     const updatedSort = sort === newSort ? "" : newSort;
     setSort(updatedSort);
 
-    const params: Record<string, string> = {
-      page: "1",
-      count: count.toString(),
-    };
-
-    if (updatedSort) {
-      params.sort = updatedSort;
-    }
-
-    sendQuery({
+    const params: ParamsType = {
       page: 1,
       count: count,
       sort: updatedSort,
+    };
+
+    sendQuery(params);
+    setSearchParams({
+      page: "1",
+      count: count.toString(),
+      ...(updatedSort ? { sort: updatedSort } : {}),
     });
-    setSearchParams(params);
   };
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams);
-    sendQuery({ page: params.page, count: params.count });
-    setPage(+params.page || 1);
-    setCount(+params.count || 4);
+    const parsedPage = Number(params.page) || 1;
+    const parsedCount = Number(params.count) || 4;
+    const parsedSort = params.sort || "";
+
+    setPage(parsedPage);
+    setCount(parsedCount);
+    setSort(parsedSort);
+
+    sendQuery({
+      page: parsedPage,
+      count: parsedCount,
+      sort: parsedSort,
+    });
   }, []);
 
   const mappedTechs = techs.map((t) => (
